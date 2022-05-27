@@ -1,11 +1,11 @@
 import React from "react";
-
+import Logo from "./Logo";
 
 const NavBar: React.FC = () => {
     return (
         <>
             <ul className="flex justify-end items-center p-8 gap-5 text-white bg-blue-900">
-                <li className="mr-auto">Logo</li>
+                <li className="mr-auto"><Logo/></li>
                 <li className="hover:scale-105 font-bold">
                     <a href="/profile">Profile</a>
                 </li>
@@ -17,7 +17,7 @@ const NavBar: React.FC = () => {
                 </li>
             </ul>
         </>
-    )
+    );
 }
 
 export default NavBar;

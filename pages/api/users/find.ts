@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const client = await MongoClient.connect(process.env.MONGODB_URI!);
-    const db = client.db();
+    const db = client.db('time-tracker');
     const usersCollection = db.collection('users');
 
     const user = await usersCollection.findOne({username: username});
