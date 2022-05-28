@@ -21,16 +21,14 @@ const initialValues: FormValues = {
 const SignUpScheme = Yup.object().shape({
     username: Yup.string().trim().required("Username is required"),
     email: Yup.string().email().trim().required("Email is required"),
-    passowrd: Yup.string().trim().required("Password is required").matches(/[a-zA-Z0-9!@#$%^&*]/),
+    password: Yup.string().trim().required("Password is required").matches(/[a-zA-Z0-9!@#$%^&*]/),
     conf_password: Yup.string().trim().required("Confirm password is required").matches(/[a-zA-Z0-9!@#$%^&*]/)
 });
 
-// Send status === "signup" in the body of token request
-// Encrypt password before sending to the token or create endpoints
 const SignUpCard: React.FC = () => {
     const [exists, setExists] = React.useState<boolean>(false);
     const [user, setUser] = React.useState<User | null>(null);
-
+    
     const checkExists = async (username: string) => {
         await fetch(`/api/users/find?username=${username}`, { method: 'GET' })
         .then(response => { if(response.status === 200) setExists(true); })
@@ -45,7 +43,7 @@ const SignUpCard: React.FC = () => {
 
     const createUser = async (values: FormValues) => {
         const { username, email, password } = values;
-        const encrypted = CryptoJS.AES.encrypt(password, process.env.CRYPTO_KEY!).toString();
+        const encrypted = CryptoJS.AES.encrypt(password, process.env.NEXT_PUBLIC_CRYPTO_KEY!).toString();
         await fetch('/api/users/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -57,14 +55,14 @@ const SignUpCard: React.FC = () => {
     }
 
     const getToken = async (username: string, password: string) => {
-        const encrypted = CryptoJS.AES.encrypt(password, process.env.CRYPTO_KEY!).toString();
-        const user: User = await fetch('/api/token', {
+        const encrypted = CryptoJS.AES.encrypt(password, process.env.NEXT_PUBLIC_CRYPTO_KEY!).toString();
+        const user: User = await fetch('/api/auth/token', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: username, password: encrypted })
         })
-        .then(response => { return response.json();})
-        .then(data => { return data; })
+        .then(response => { return response.json(); })
+        .then(data => { return data.value; })
         .catch(err => { console.log(err); });
         setUser(user);
         console.log(user);
