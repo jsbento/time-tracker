@@ -20,26 +20,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(400).json({message: 'No data provided'});
     }
 
-    const { username, password, status } = req.body;
+    const { username, password } = req.body;
     const client = await MongoClient.connect(process.env.MONGO_URL!);
     const db = client.db('time-tracker');
     const usersCollection = db.collection('users');
     const token = generateToken();
 
-    if(status === "signup") {
-        await usersCollection.findOneAndUpdate({username: username}, {$set: {token: token}});
-        res.status(200).json(token);
+    const user = await usersCollection.findOne({username: username});
+    if(!user) {
+        res.status(404).json({message: 'User not found'});
     } else {
-        const user = await usersCollection.findOne({username: username});
-        if(!user) {
-            res.status(404).json({message: 'User not found'});
+        if(user.password === password) {
+            const result = await usersCollection.findOneAndUpdate({username: username}, {$set: {token: token}, returnNewDocument: true});
+            res.status(200).json(result);
         } else {
-            if(user.password === password) {
-                await usersCollection.findOneAndUpdate({username: username}, {$set: {token: token}});
-                res.status(200).json(token);
-            } else {
-                res.status(401).json({message: 'Invalid credentials'});
-            }
+            res.status(401).json({message: 'Invalid credentials'});
         }
     }
 }
