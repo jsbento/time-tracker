@@ -4,9 +4,11 @@ import { MongoClient } from "mongodb";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if(req.method !== 'DELETE') {
         res.status(405).end('Method not allowed');
+        return;
     }
     if(!req.body) {
         res.status(400).end('No username provided');
+        return;
     }
 
     const { username } = req.body;

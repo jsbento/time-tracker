@@ -27,7 +27,6 @@ const SignUpScheme = Yup.object().shape({
 
 const SignUpCard: React.FC = () => {
     const [exists, setExists] = React.useState<boolean>(false);
-    const [user, setUser] = React.useState<User | null>(null);
     
     const checkExists = async (username: string) => {
         await fetch(`/api/users/find?username=${username}`, { method: 'GET' })
@@ -64,9 +63,8 @@ const SignUpCard: React.FC = () => {
         .then(response => { return response.json(); })
         .then(data => { return data.value; })
         .catch(err => { console.log(err); });
-        setUser(user);
-        console.log(user);
-        
+        window.sessionStorage.setItem('user', user.username);
+        window.sessionStorage.setItem('user_email', user.email);
     }
 
     return (

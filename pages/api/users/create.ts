@@ -5,9 +5,11 @@ import { User } from "../../../types/User";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if(req.method !== 'POST') {
         res.status(405).end('Method not allowed');
+        return;
     }
     if(!req.body) {
         res.status(400).end('No data provided');
+        return;
     }
 
     const client = await MongoClient.connect(process.env.MONGODB_URI!);
