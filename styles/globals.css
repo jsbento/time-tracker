@@ -28,7 +28,7 @@ a {
     width: 300px;
 }
 
-#sign-up-card, #login-card {
+#sign-up-card, #login-card, #time-event-card {
     margin: auto;
     max-width: 400px;
 }

@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(400).end("No data sent");
         return;
     }
-    const { owner, start, end, description } = req.body;
+    const { owner, start, end, description, date } = req.body;
     if(!owner || !start || !end || !description) {
         res.status(400).end("Missing required fields");
         return;
@@ -22,12 +22,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         start: start,
         end: end,
         description: description,
-        date: new Date()
+        date: date
     }
 
     const client = await MongoClient.connect(process.env.MONGO_URL!);
     const db = client.db("time-tracker");
-    const timeEventsCollection = db.collection("time_events");
+    const timeEventsCollection = db.collection("time-events");
 
     try {
         let result = await timeEventsCollection.insertOne(time_event);
