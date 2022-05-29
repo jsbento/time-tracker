@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
                     <a href="/pay">Pay</a>
                 </li>
                 <li className="hover:scale-105 font-bold">
-                    <a href="/signup">Sign Up</a>
+                    <a href="/login">Login</a>
                 </li>
             </ul>
         </>
