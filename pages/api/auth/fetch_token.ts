@@ -22,9 +22,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
     if(user.token.expiresAt < new Date()) {
-        res.status(401).json({message: 'Token expired'});
+        res.status(401).json({message: 'Token expired', valid: false});
     } else {
-        res.status(200).json(user.token);
+        res.status(200).json({message: 'Token valid', valid: true});
     }
     await client.close();
 }

@@ -31,7 +31,10 @@ const SignUpCard: React.FC = () => {
     const checkExists = async (username: string) => {
         await fetch(`/api/users/find?username=${username}`, { method: 'GET' })
         .then(response => { if(response.status === 200) setExists(true); })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            alert(err.message);
+        });
     }
 
     const checkPassword = (password: string, conf_password: string) => {
@@ -50,7 +53,10 @@ const SignUpCard: React.FC = () => {
         })
         .then(response => { return response.json();})
         .then(data => { console.log(data); })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+            alert(err.message);
+        });
     }
 
     const getToken = async (username: string, password: string) => {
@@ -62,7 +68,10 @@ const SignUpCard: React.FC = () => {
         })
         .then(response => { return response.json(); })
         .then(data => { return data.value; })
-        .catch(err => { console.log(err); });
+        .catch(err => {
+            console.log(err);
+            alert(err.message);
+        });
         window.sessionStorage.setItem('user', user.username);
         window.sessionStorage.setItem('user_email', user.email);
     }
