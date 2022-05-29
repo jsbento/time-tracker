@@ -93,6 +93,7 @@ const SignUpCard: React.FC = () => {
                     await createUser(values);
                     await getToken(values.username, values.password);
                     actions.setSubmitting(false);
+                    window.location.href = "/dashboard";
                 }
             }}>
                 {({ errors, isSubmitting }) => (

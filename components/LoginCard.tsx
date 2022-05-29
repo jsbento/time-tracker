@@ -68,6 +68,7 @@ const LoginCard: React.FC = () => {
                     await getToken(values.username, values.password);
                 }
                 actions.setSubmitting(false);
+                window.location.href="/dashboard";
             }}>
                 {({ errors, isSubmitting }) => (
                     <>
@@ -78,7 +79,7 @@ const LoginCard: React.FC = () => {
                             <label id="form-elt" htmlFor="password">Password</label>
                             <Field id="password" name="password" type="password" placeholder="Password" autoComplete="off"/>
                             <button className="border-2 w-auto p-1 rounded-md m-2 font-semibold" type="submit">Login</button>
-                            <p>Don't have an account? <a href="/signup" className="text-sky-500"></a></p>
+                            <p>Don't have an account? <a href="/signup" className="text-sky-500">Sign Up</a></p>
                             {errors.username ? <div className="text-red-600">{errors.username}</div> : null}
                             {errors.password ? <div className="text-red-600">{errors.password}</div> : null}
                             {isSubmitting ? <div className="animate-pulse font-semibold text-lg">Loading...</div> : null}
