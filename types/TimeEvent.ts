@@ -8,3 +8,7 @@ export type TimeEvent = {
     description: string;
     date: Date;
 }
+
+export type TimeTableProps = {
+    events: TimeEvent[];
+}

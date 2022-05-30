@@ -37,3 +37,7 @@ a {
     padding: 5px;
     padding-top: 30px;
 }
+
+tr {
+    outline: 1px solid #ccc;
+}
