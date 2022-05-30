@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import LoginCard from "../components/LoginCard";
+import LoginCard from "../components/cards/LoginCard";
 
 const Login: NextPage = () => {
   return (

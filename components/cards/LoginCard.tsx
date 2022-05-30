@@ -2,7 +2,7 @@ import React from "react";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import CryptoJS from "crypto-js";
-import { User } from "../types/User";
+import { User } from "../../types/User";
 
 interface FormValues {
     username: string;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, Form, Formik } from "formik";
-import { TimeEvent } from "../types/TimeEvent";
+import { TimeEvent } from "../../types/TimeEvent";
 
 interface FormValues {
     event_date: string;

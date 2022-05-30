@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import TimeEventCard from "../../components/TimeEventCard";
+import TimeEventCard from "../../components/cards/TimeEventCard";
 
 const Create: NextPage = () => {
     return (
