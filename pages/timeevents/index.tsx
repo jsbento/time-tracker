@@ -1,27 +1,37 @@
-import { NextPage } from "next";
-import TimeTable from "../../components/time_table/TimeTable";
+import { GetServerSideProps, NextPage } from "next";
+import React from "react";
 import { TimeEvent, TimeTableProps } from "../../types/TimeEvent";
+import dynamic from "next/dynamic";
+const TimeTable = dynamic(() => import("../../components/time_table/TimeTable"), {ssr: false});
 
 const TimeEvents: NextPage = () => {
+    const [data, setData] = React.useState<TimeEvent[]>([]);
 
-    const t1: TimeEvent = {
-        owner: "test",
-        date: new Date(),
-        start: "12:00",
-        end: "13:00",
-        description: "Worked on the project"
+    const fetchData = async () => {
+        const username = window.sessionStorage.getItem('user');
+        return await fetch(`/api/timeevents/find?username=${username}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(data => data)
+        .catch(err => console.log(err));
     }
-
-    const events: TimeEvent[] = [t1];
-
-    const rprops: TimeTableProps = {
-        events: events
-    }
+    
+    React.useEffect(() => {
+        fetchData().then(data => setData(data));
+        console.log(data);
+        
+    }, []);
 
     return (
         <div className="w-4/6 text-center">
-            <h1 className="font-bold">Your Time Events</h1>
-            <TimeTable  {...rprops}/>
+            <h1 className="font-bold text-lg p-2">Your Time Events</h1>
+            <div>
+                <p>Filter</p>
+                <button onClick={() => window.location.href='/timeevents/create'}>Add Event</button>
+            </div>
+            <TimeTable  events={data}/>
         </div>
     );
 }

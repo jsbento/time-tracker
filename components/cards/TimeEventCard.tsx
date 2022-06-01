@@ -42,6 +42,7 @@ const TimeEventCard: React.FC = () => {
                 await postEvent(event);
                 actions.setSubmitting(false);
                 actions.resetForm();
+                window.location.href='/timeevents';
             }}>
                 {({ isSubmitting }) => (
                     <>

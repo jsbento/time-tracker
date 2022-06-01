@@ -3,9 +3,10 @@ import { TimeEvent } from "../../types/TimeEvent";
 
 const TimeRow: React.FC<TimeEvent> = ({ date, start, end, description }: TimeEvent) => {
     const parseDate = (date: Date) => {
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const year = date.getFullYear();
+        const d = new Date(date);
+        const month = d.getMonth() + 1;
+        const day = d.getDate();
+        const year = d.getFullYear();
         return `${month}/${day}/${year}`;
     }
 

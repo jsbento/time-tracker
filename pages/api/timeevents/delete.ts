@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
 
-    const client = await MongoClient.connect(process.env.MONGO_URL!);
+    const client = await MongoClient.connect(process.env.MONGODB_URI!);
     const db = client.db("time-tracker");
     const timeEventsCollection = db.collection("time-events");
 

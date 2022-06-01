@@ -6,18 +6,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(405).end('Method not allowed');
         return;
     }
-    if(!req.query.username || !req.query.date) {
+    const { username } = req.query;
+    if(!username) {
         res.status(400).end('Missing required fields');
         return;
     }
 
-    const { username, date } = req.query;
-
-    const client = await MongoClient.connect(process.env.MONGO_URL!);
+    const client = await MongoClient.connect(process.env.MONGODB_URI!);
     const db = client.db("time-tracker");
     const timeEventsCollection = db.collection("time-events");
-
-    const results = await timeEventsCollection.find({username: username, date: new Date(date.toString())}).toArray();
+    const results = await timeEventsCollection.find({owner: username}).toArray();
 
     if(!results)
         res.status(404).end('No time events found');
