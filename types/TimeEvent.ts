@@ -11,4 +11,9 @@ export type TimeEvent = {
 
 export type TimeTableProps = {
     events: TimeEvent[];
+    filter?: TimeEventFilter;
+}
+
+export type TimeEventFilter = {
+    date: string;
 }
