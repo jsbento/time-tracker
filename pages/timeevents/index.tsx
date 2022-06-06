@@ -1,6 +1,6 @@
-import { GetServerSideProps, NextPage } from "next";
+import { NextPage } from "next";
 import React from "react";
-import { TimeEvent, TimeTableProps } from "../../types/TimeEvent";
+import { TimeEvent } from "../../types/TimeEvent";
 import dynamic from "next/dynamic";
 const TimeTable = dynamic(() => import("../../components/time_table/TimeTable"), {ssr: false});
 
@@ -21,7 +21,6 @@ const TimeEvents: NextPage = () => {
     
     React.useEffect(() => {
         fetchData().then(data => setData(data));
-        
     }, []);
 
     return (
