@@ -9,10 +9,13 @@ const AuthNav: React.FC = () => {
     return (
         <>
             <li className="hover:scale-105 font-bold">
-                <a href="/profile">Profile</a>
+                <a href="/dashboard">Dashboard</a>
             </li>
             <li className="hover:scale-105 font-bold">
                 <a href="/timeevents">Time Events</a>
+            </li>
+            <li className="hover:scale-105 font-bold">
+                <a href="/profile">Profile</a>
             </li>
             <li className="hover:scale-105">
                 <button className="font-bold" onClick={() => logout()}>Logout</button>
